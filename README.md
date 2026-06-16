@@ -49,8 +49,8 @@ The goal is to build, operate, and document a practical enterprise-inspired envi
 | [03. Identity & Access](./03-identity-access/readme.md) | Active Directory, OUs, security groups and AD CS |
 | [04. Endpoint Management](./04-endpoint-management/readme.md) | Group Policy, hardening and client management |
 | [05. Monitoring & Operations](./05-monitoring-operations/readme.md) | Checkmk monitoring and operational visibility |
-| [06. Backup & Recovery](./06-backup-recovery/readme.md) | Backup and recovery concepts |
-| [07. Automation](./07-automation/readme.md) | PowerShell automation and administration |
+| [06. Automation](./07-automation/readme.md) | PowerShell automation and administration |
+| [07. Backup & Recovery](./06-backup-recovery/readme.md) | Backup and recovery concepts |
 | [08. Hybrid Cloud](./08-hybrid-cloud/readme.md) | Microsoft Entra ID and hybrid identity concepts |
 ---
 
