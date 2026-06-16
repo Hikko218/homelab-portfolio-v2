@@ -12,9 +12,8 @@ The network follows a segmented, least-privilege design with centralized routing
 
 * [Physical Network Topology](#physical-network-topology)
 * [Network Architecture](#network-architecture)
-* [DHCP Services](#dhcp-services)
-* [VLAN Overview](#vlan-overview)
-* [VLAN Security Zones](#vlan-security-zones)
+* [VLAN Segmentation](#vlan-segmentation)
+* [IP Addressing & DHCP](#ip-addressing--dhcp)
 * [Firewall Access Matrix](#firewall-access-matrix)
 * [Firewall Rule Implementation](#firewall-rule-implementation)
 * [Security Benefits](#security-benefits)
@@ -49,35 +48,7 @@ All internal VLANs are transported via 802.1Q trunk links between the switch, fi
 
 ---
 
-# DHCP Services
-
-DHCP services are provided by OPNsense and centrally managed for all VLANs.
-
-Each network segment receives its own DHCP scope, gateway configuration, DNS settings, and domain suffix information.
-
-| VLAN | DHCP Scope |
-|----------|----------|
-| VLAN 10 | 10.0.10.30 - 10.0.10.200 |
-| VLAN 20 | 10.0.20.30 - 10.0.20.200 |
-| VLAN 30 | 10.0.30.30 - 10.0.30.200 |
-| VLAN 40 | 10.0.40.30 - 10.0.40.200 |
-
-Critical infrastructure systems such as OPNsense, ESXi hosts, the Domain Controller, and the monitoring server use static IP addressing outside of the DHCP ranges.
-
----
-
-# VLAN Overview
-
-| VLAN | Name | Subnet | Purpose |
-|----------|----------|----------|----------|
-| VLAN 10 | Infrastructure | 10.0.10.0/24 | ESXi Management |
-| VLAN 20 | Servers | 10.0.20.0/24 | Active Directory Services |
-| VLAN 30 | Clients | 10.0.30.0/24 | Domain Joined Clients |
-| VLAN 40 | Monitoring | 10.0.40.0/24 | Checkmk Monitoring |
-| VLAN 999| Black Hole | N/A | Isolation of untagged and unauthorized network traffic |
----
-
-# VLAN Security Zones
+# VLAN Segmentation
 
 | VLAN | Role | Purpose |
 |----------|----------|----------|
@@ -85,6 +56,23 @@ Critical infrastructure systems such as OPNsense, ESXi hosts, the Domain Control
 | VLAN 20 | Servers | Centralized Windows infrastructure services including Active Directory and DNS |
 | VLAN 30 | Clients | Domain-joined workstation network for end-user systems and policy testing |
 | VLAN 40 | Monitoring | Isolated monitoring network for Checkmk, SNMP, and service availability checks |
+
+---
+
+# IP Addressing & DHCP
+
+DHCP services are provided by OPNsense and centrally managed for all VLANs.
+
+Each network segment receives its own DHCP scope, gateway configuration, DNS settings, and domain suffix information.
+
+| VLAN | Subnet | DHCP Scope |
+|----------|----------|----------|
+| VLAN 10 | 10.0.10.0/24 | 10.0.10.30 - 10.0.10.200 |
+| VLAN 20 | 10.0.20.0/24 | 10.0.20.30 - 10.0.20.200 |
+| VLAN 30 | 10.0.30.0/24 | 10.0.30.30 - 10.0.30.200 |
+| VLAN 40 | 10.0.40.0/24 | 10.0.40.30 - 10.0.40.200 |
+
+Critical infrastructure systems such as OPNsense, ESXi hosts, the Domain Controller, and the monitoring server use static IP addressing outside of the DHCP ranges.
 
 ---
 

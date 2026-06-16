@@ -79,19 +79,11 @@ home.lab
     └── Security Groups
 ```
 
-### Design Goals
-
-- Separation of users and computers
-- Simplified Group Policy targeting
-- Administrative delegation
-- Security-focused organization
-- Scalability for future expansion
-
 ---
 
 ## User Management
 
-User accounts are organized according to departmental responsibilities and managed through centralized Active Directory administration.
+User accounts are centrally managed through Active Directory and utilize unique numeric logon identifiers for authentication.
 
 ### Example User Account
 
@@ -107,9 +99,9 @@ Administrative activities are performed using dedicated privileged accounts.
 Examples:
 
 ```text
-adm_ada
-adm_server
-adm_client
+adm_ada_100001
+adm_server_100001
+adm_client_100001
 ```
 
 This separation follows the principle of least privilege and reduces exposure of privileged credentials.
@@ -125,13 +117,6 @@ svc_monitoring
 svc_backup
 svc_application
 ```
-
-### Benefits
-
-- Improved accountability
-- Simplified credential management
-- Reduced use of personal administrative accounts
-- Support for service-specific permissions
 
 ---
 
@@ -216,13 +201,6 @@ DL_HR_Share_RW
 \\FILE01\HR
 ```
 
-### Benefits
-
-- Simplified permission management
-- Improved scalability
-- Reduced administrative complexity
-- Industry-standard access control model
-
 ---
 
 ## Authentication Concepts
@@ -286,12 +264,7 @@ Certificate deployment is automated through Group Policy.
 
 ## Certificate Templates
 
-### User Certificate
-
-Purpose:
-
-- User authentication
-- Secure communications
+The following certificate templates are currently deployed within the HomeLab environment.
 
 ### Computer Certificate
 
@@ -299,15 +272,23 @@ Purpose:
 
 - Device authentication
 - Internal service trust
+- Automatic certificate enrollment
 
-### Web Server Certificate
+Status:
+
+- Implemented and validated through Group Policy Auto Enrollment
+
+### Domain Controller Certificates
 
 Purpose:
 
-- HTTPS services
-- Internal web applications
+- Kerberos authentication
+- Domain controller authentication
+- Active Directory secure communications
 
----
+Status:
+
+- Automatically issued by the Enterprise Certification Authority
 
 ## Identity Security Principles
 

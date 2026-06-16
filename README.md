@@ -36,7 +36,7 @@ The goal is to build, operate, and document a practical enterprise-inspired envi
 | **Hybrid Infrastructure**        | Microsoft Entra ID, Hybrid Identity Concepts     | 
 | **Linux Services**               | Ubuntu Server, Apache, MariaDB                   | 
 
-> Network architecture and segmentation are my strongest focus and passion areas.
+> My primary areas of interest are network architecture, Active Directory, Windows infrastructure, and PowerShell automation.
 
 ---
 
