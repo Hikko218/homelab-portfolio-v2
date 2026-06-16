@@ -45,13 +45,13 @@ The goal is to build, operate, and document a practical enterprise-inspired envi
 | Area | Description |
 |----------|----------|
 | [01. Infrastructure](./01-infrastructure/readme.md) | Hardware, virtualization platform and system architecture |
-| [02. Networking & Security](./02-networking-security/README.md) | OPNsense, VLANs, routing and firewall policies |
+| [02. Networking & Security](./02-networking-security/readme.md) | OPNsense, VLANs, routing and firewall policies |
 | [03. Identity & Access](./03-identity-access/readme.md) | Active Directory, OUs, security groups and AD CS |
-| [04. Endpoint Management](./04-Endpoint-Management/readme.md) | Group Policy, hardening and client management |
-| [05. Monitoring & Operations](./05-monitoring-operations/README.md) | Checkmk monitoring and operational visibility |
-| [06. Backup & Recovery](./06-Backup-Recovery/README.md) | Backup and recovery concepts |
-| [07. Automation](./07-Automation/README.md) | PowerShell automation and administration |
-| [08. Hybrid Cloud](./08-Hybrid-Cloud/README.md) | Microsoft Entra ID and hybrid identity concepts |
+| [04. Endpoint Management](./04-endpoint-management/readme.md) | Group Policy, hardening and client management |
+| [05. Monitoring & Operations](./05-monitoring-operations/readme.md) | Checkmk monitoring and operational visibility |
+| [06. Backup & Recovery](./06-backup-recovery/readme.md) | Backup and recovery concepts |
+| [07. Automation](./07-automation/readme.md) | PowerShell automation and administration |
+| [08. Hybrid Cloud](./08-hybrid-cloud/readme.md) | Microsoft Entra ID and hybrid identity concepts |
 ---
 
 ## Goals
