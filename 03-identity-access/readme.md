@@ -56,27 +56,25 @@ home.lab
 ├── Admin Accounts
 ├── Service Accounts
 │
-├── HR
-│   ├── Users
-│   └── Clients
-│
-├── Finance
-│   ├── Users
-│   └── Clients
-│
-├── IT
-│   ├── Users
-│   └── Clients
+├── Groups
+│   ├── Administrative
+│   ├── Departments
+│   ├── File Shares
+│   └── Security Groups
 │
 ├── Infrastructure
 │   ├── Servers
 │   └── Hypervisors
 │
-└── Groups
-    ├── Administrative
-    ├── Departments
-    ├── File Shares
-    └── Security Groups
+├── Users
+│   ├── Finance
+│   ├── HR
+│   └── IT
+│
+└── Workstations
+    ├── Finance
+    ├── HR
+    └── IT
 ```
 
 ---
@@ -84,6 +82,8 @@ home.lab
 ## User Management
 
 User accounts are centrally managed through Active Directory and utilize unique numeric logon identifiers for authentication.
+
+Users are organized within dedicated departmental Organizational Units and assigned permissions through security group membership.
 
 ### Example User Account
 
@@ -254,12 +254,6 @@ Certificate deployment is automated through Group Policy.
 - Revoked Certificate Cleanup
 - Certificate Template Deployment
 
-### Benefits
-
-- Reduced administrative effort
-- Consistent certificate deployment
-- Improved security posture
-
 ---
 
 ## Certificate Templates
@@ -290,6 +284,8 @@ Status:
 
 - Automatically issued by the Enterprise Certification Authority
 
+---
+
 ## Identity Security Principles
 
 The environment is designed around the following security concepts:
@@ -315,4 +311,3 @@ The following identity management functions have been validated:
 - Administrative account separation
 - Group Policy integration
 - Resource authorization through security groups
-
