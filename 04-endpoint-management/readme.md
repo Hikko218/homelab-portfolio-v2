@@ -2,9 +2,9 @@
 
 ## Overview
 
-This section documents the Group Policy and endpoint management configuration used within the HomeLab environment.
+This section documents the Group Policy and endpoint management configuration implemented within the HomeLab environment.
 
-Implemented policies include security baselines, endpoint hardening, Windows Update management, certificate deployment, and department-specific client settings.
+Policies are used to provide centralized configuration management, security baselines, endpoint hardening, certificate deployment, and department-specific workstation settings.
 
 ---
 
@@ -12,21 +12,21 @@ Implemented policies include security baselines, endpoint hardening, Windows Upd
 
 - [GPO Structure](#gpo-structure)
 - [Client Baseline Policy](#client-baseline-policy)
-  - [Purpose](#purpose)
-  - [Link Location](#link-location)
-  - [Configuration Examples](#configuration-examples)
 - [Endpoint Hardening](#endpoint-hardening)
 - [Cryptography Hardening](#cryptography-hardening)
+- [Server Baseline Policy](#server-baseline-policy)
+- [Server Hardening](#server-hardening)
 - [RDP Hardening](#rdp-hardening)
 - [Windows Update Policy](#windows-update-policy)
+- [Browser Policy](#browser-policy)
+- [Client Local Administrators](#client-local-administrators)
 - [Department Workstation Policies](#department-workstation-policies)
-  - [Desktop Wallpaper](#desktop-wallpaper)
-  - [Drive Mapping](#drive-mapping)
-  - [Browser Configuration](#browser-configuration)
 - [Certificate Auto Enrollment](#certificate-auto-enrollment)
 - [Security Benefits](#security-benefits)
 
-# GPO Structure
+---
+
+## GPO Structure
 
 ```text
 home.lab
@@ -34,73 +34,43 @@ home.lab
 ├── Default Domain Policy
 ├── Certificate Auto Enrollment
 │
-├── Client Baseline Policy
-├── Endpoint Hardening
 ├── Cryptography Hardening
-├── Windows Update Policy
-├── RDP Hardening
 │
-├── HR Workstation Policy
-├── IT Workstation Policy
-└── Finance Workstation Policy
+├── Infrastructure
+│   ├── Server Baseline Policy
+│   ├── Server Hardening
+│   └── RDP Hardening
+│
+├── Workstations
+│   ├── Client Baseline Policy
+│   ├── Endpoint Hardening
+│   ├── Browser Policy
+│   ├── Windows Update Policy
+│   └── Client Local Administrators
+│
+├── Users
+│   ├── Finance Workstation Policy
+│   ├── HR Workstation Policy
+│   └── IT Workstation Policy
 ```
 
 ---
 
-# Client Baseline Policy
+## Client Baseline Policy
 
-## Purpose
+### Purpose
 
 Provides common security and operating system settings for all Windows clients.
 
-## Link Location
+### Configuration Examples
 
-```text
-Lab
-├── HR
-│   └── Clients
-├── IT
-│   └── Clients
-└── Finance
-    └── Clients
-```
-
-## Configuration Examples
-
-### Account Security
-
-Path:
-
-```text
-Computer Configuration
-→ Policies
-→ Windows Settings
-→ Security Settings
-→ Local Policies
-→ Security Options
-```
-
-Settings:
+#### Account Security
 
 - Disable Guest Account
 - Disable Anonymous SID Enumeration
-- Enable UAC
+- Enable User Account Control (UAC)
 
----
-
-### Audit Logging
-
-Path:
-
-```text
-Computer Configuration
-→ Policies
-→ Windows Settings
-→ Security Settings
-→ Advanced Audit Policy Configuration
-```
-
-Enable:
+#### Audit Logging
 
 - Logon Events
 - Account Logon
@@ -108,252 +78,143 @@ Enable:
 - Policy Change
 - Object Access
 
----
-
-### Windows Defender
-
-Path:
-
-```text
-Computer Configuration
-→ Administrative Templates
-→ Windows Components
-→ Microsoft Defender Antivirus
-```
-
-Settings:
+#### Windows Defender
 
 - Real-Time Protection Enabled
 - Cloud Protection Enabled
 - Tamper Protection Enabled
 
----
-
-### Windows Firewall
-
-Path:
-
-```text
-Computer Configuration
-→ Windows Settings
-→ Security Settings
-→ Windows Defender Firewall
-```
-
-Settings:
+#### Windows Firewall
 
 - Firewall Enabled
 - Inbound Connections Blocked by Default
 
 ---
 
-# Endpoint Hardening
+## Endpoint Hardening
 
-## Purpose
+### Purpose
 
 Reduce attack surface and improve endpoint security.
 
-## Link Location
+### Configuration Examples
 
-```text
-HR\Clients
-IT\Clients
-Finance\Clients
-```
-
-## Configuration Examples
-
-### SMB Hardening
-
-Path:
-
-```text
-Computer Configuration
-→ Administrative Templates
-→ Network
-→ Lanman Workstation
-```
-
-Settings:
+#### SMB Hardening
 
 - Disable SMBv1
 
----
-
-### WinRM Hardening
-
-Path:
-
-```text
-Computer Configuration
-→ Administrative Templates
-→ Windows Components
-→ Windows Remote Management
-```
-
-Settings:
+#### WinRM Hardening
 
 - Disable Basic Authentication
 - Disable Unencrypted Traffic
 
----
-
-### PowerShell Logging
-
-Path:
-
-```text
-Computer Configuration
-→ Administrative Templates
-→ Windows Components
-→ Windows PowerShell
-```
-
-Settings:
+#### PowerShell Logging
 
 - Enable Module Logging
 - Enable Script Block Logging
 
----
-
-### SmartScreen
-
-Path:
-
-```text
-Computer Configuration
-→ Administrative Templates
-→ Windows Components
-→ File Explorer
-```
-
-Settings:
+#### SmartScreen
 
 - Enable SmartScreen
 
 ---
 
-# Cryptography Hardening
+## Cryptography Hardening
 
-## Purpose
+### Purpose
 
 Disable legacy cryptographic protocols and weak cipher suites.
 
-## Link Location
+### Implemented Controls
 
-```text
-HR\Clients
-IT\Clients
-Finance\Clients
-Infrastructure\Servers
-```
-
-## Configuration Method
-
-Path:
-
-```text
-Computer Configuration
-→ Preferences
-→ Windows Settings
-→ Registry
-```
-
-## Disable Legacy Protocols
+#### Disabled Protocols
 
 - SSL 2.0
 - SSL 3.0
 
----
-
-## Disable Weak Ciphers
+#### Disabled Ciphers
 
 - DES
 - RC2
 - RC4
 - 3DES
 
----
-
-## Disable Weak Hashing
+#### Disabled Hashing Algorithms
 
 - MD5
 
----
-
-## Preferred Protocols
+#### Preferred Protocols
 
 - TLS 1.2
 - TLS 1.3 (where supported)
 
 ---
 
-# RDP Hardening
+## Server Baseline Policy
 
-## Purpose
+### Purpose
+
+Provides standardized security and operating system settings for Windows servers.
+
+### Configuration Examples
+
+- Windows Firewall Configuration
+- Audit Policy Configuration
+- Microsoft Defender Settings
+- Account Security Policies
+- Event Logging
+
+---
+
+## Server Hardening
+
+### Purpose
+
+Reduce the attack surface of infrastructure systems and administrative servers.
+
+### Configuration Examples
+
+- SMB Hardening
+- PowerShell Logging
+- WinRM Hardening
+- Security Option Configuration
+- Service Hardening
+
+---
+
+## RDP Hardening
+
+### Purpose
 
 Secure Remote Desktop access to administrative systems.
 
-## Link Location
+### Configuration Examples
 
-```text
-Infrastructure
-└── Servers
-```
-
-## Path
-
-```text
-Computer Configuration
-→ Administrative Templates
-→ Windows Components
-→ Remote Desktop Services
-```
-
-## Configuration
-
-### Security Layer
+#### Security Layer
 
 - Require SSL
 
-### Authentication
+#### Authentication
 
 - Require Network Level Authentication (NLA)
 
-### Encryption
+#### Encryption
 
 - High Encryption Level
 
-### RPC Security
+#### RPC Security
 
 - Require Secure RPC Communication
 
 ---
 
-# Windows Update Policy
+## Windows Update Policy
 
-## Purpose
+### Purpose
 
-Centralized Windows Update configuration.
+Provide centralized Windows Update management for domain-joined workstations.
 
-## Link Location
-
-```text
-HR\Clients
-IT\Clients
-Finance\Clients
-```
-
-## Path
-
-```text
-Computer Configuration
-→ Administrative Templates
-→ Windows Components
-→ Windows Update
-```
-
-## Configuration
+### Configuration Examples
 
 - Configure Automatic Updates
 - Scheduled Installation
@@ -362,105 +223,76 @@ Computer Configuration
 
 ---
 
-# Department Workstation Policies
+## Browser Policy
 
-## Purpose
+### Purpose
 
-Department-specific user configuration.
+Provide standardized browser configuration and security settings.
 
-Examples:
+### Configuration Examples
 
-- HR Workstation Policy
-- IT Workstation Policy
-- Finance Workstation Policy
-
-## Link Location
-
-```text
-HR\Users
-IT\Users
-Finance\Users
-```
-
----
-
-## Desktop Wallpaper
-
-Path:
-
-```text
-User Configuration
-→ Policies
-→ Administrative Templates
-→ Desktop
-```
-
----
-
-## Drive Mapping
-
-Path:
-
-```text
-User Configuration
-→ Preferences
-→ Windows Settings
-→ Drive Maps
-```
-
-Example:
-
-```text
-H: → \\FILE01\HR
-I: → \\FILE01\IT
-F: → \\FILE01\Finance
-```
-
----
-
-## Browser Configuration
-
-Examples:
-
-- Company Homepage
 - Managed Favorites
+- Homepage Configuration
 - Security Settings
+- Browser Hardening
 
 ---
 
-# Certificate Auto Enrollment
+## Client Local Administrators
 
-## Purpose
+### Purpose
+
+Manage local administrator access through centralized Active Directory group membership.
+
+### Configuration Examples
+
+- Restricted Local Administrator Access
+- Group-Based Local Administrator Assignment
+- Administrative Delegation
+
+---
+
+## Department Workstation Policies
+
+### Purpose
+
+Provide department-specific user configuration.
+
+### HR Workstation Policy
+
+- Department Drive Mapping
+- Desktop Configuration
+
+### Finance Workstation Policy
+
+- Department Drive Mapping
+- Desktop Configuration
+
+### IT Workstation Policy
+
+- Department Drive Mapping
+- Desktop Configuration
+
+---
+
+## Certificate Auto Enrollment
+
+### Purpose
 
 Automatically deploy certificates issued by Active Directory Certificate Services (AD CS).
 
-## Link Location
+### Configured Features
 
-```text
-Domain Level
-```
-
-## Path
-
-```text
-Computer Configuration
-→ Policies
-→ Windows Settings
-→ Security Settings
-→ Public Key Policies
-```
-
-Settings:
-
-- Enable Certificate Auto Enrollment
-- Renew Expired Certificates
-- Update Pending Certificates
+- Automatic Enrollment
+- Automatic Renewal
+- Revoked Certificate Cleanup
+- Certificate Template Deployment
 
 ---
 
-# Security Benefits
+## Security Benefits
 
-This GPO design provides:
+This Group Policy design provides:
 
 - Centralized Configuration Management
 - Consistent Security Baselines
